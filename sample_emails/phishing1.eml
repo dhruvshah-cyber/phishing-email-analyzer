@@ -1,0 +1,22 @@
+From: "PayPal Security" <security@paypa1-alert.com>
+To: victim@example.com
+Reply-To: collect@evil-harvest.ru
+Return-Path: <bounce@paypa1-alert.com>
+Subject: Urgent: Your account has been limited
+Date: Fri, 21 Mar 2026 08:00:00 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Received: from mail.paypa1-alert.com ([198.51.100.42]) by mx.example.com
+X-Mailer: The Bat! 9.3
+
+Dear Customer,
+
+Your PayPal account has been limited due to suspicious activity.
+Click the link below to verify your identity immediately:
+
+http://paypa1-alert.com/verify?token=abc123
+http://bit.ly/3xFakeLink
+
+Failure to verify within 24 hours will result in permanent suspension.
+
+PayPal Security Team
