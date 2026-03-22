@@ -1,0 +1,42 @@
+============================================================
+       PHISHING EMAIL ANALYZER -- THREAT REPORT
+       Generated: 2026-03-21 08:05:00 UTC
+============================================================
+
+[ HEADER ANALYSIS ]
+  From:          "PayPal Security" <security@paypa1-alert.com>
+  Reply-To:      collect@evil-harvest.ru
+  Return-Path:   <bounce@paypa1-alert.com>
+  Sender IP:     198.51.100.42
+  Sender Domain: paypa1-alert.com
+  Mailer:        The Bat! 9.3
+  Hop Count:     1
+  [!] Reply-To differs from From -- common phishing tactic
+  [!] Return-Path domain does not match sender domain
+
+[ DNS CHECKS ]
+  SPF:   No SPF record found
+  DMARC: No DMARC record found
+  [!] Missing SPF record
+  [!] Missing DMARC record
+
+[ URL SCAN ]
+  [MALICIOUS] http://paypa1-alert.com/verify?token=abc123
+       Engines flagged -- malicious:14 suspicious:3
+  [MALICIOUS] http://bit.ly/3xFakeLink
+       Engines flagged -- malicious:7 suspicious:2
+
+[ IP REPUTATION ]
+  IP:            198.51.100.42
+  Abuse Score:   91%
+  Country:       RU
+  Total Reports: 342
+  Tor Exit Node: False
+
+[ THREAT VERDICT ]
+  Score:   100/100
+  Verdict: MALICIOUS
+
+============================================================
+  MITRE ATT&CK: T1566.001 | T1566.002 | T1078
+============================================================
