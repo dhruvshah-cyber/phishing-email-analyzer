@@ -6,17 +6,20 @@ MITRE ATT&CK: T1566.001, T1566.002, T1078
 """
 
 import email
+import os
 import re
 import sys
 import requests
 import dns.resolver
 from email import policy
 from datetime import datetime
+from dotenv import load_dotenv
 
+# Load API keys from .env file (never commit .env to version control)
+load_dotenv()
 
-# Configuration
-VIRUSTOTAL_API_KEY = "YOUR_VT_API_KEY"       # https://www.virustotal.com/
-ABUSEIPDB_API_KEY  = "YOUR_ABUSEIPDB_KEY"   # https://www.abuseipdb.com/
+VIRUSTOTAL_API_KEY = os.getenv("VIRUSTOTAL_API_KEY", "")
+ABUSEIPDB_API_KEY  = os.getenv("ABUSEIPDB_API_KEY", "")
 
 
 def load_email(source: str):
@@ -43,7 +46,7 @@ def analyze_headers(msg) -> dict:
     results["from"]        = sender
     results["reply_to"]    = reply_to
     results["return_path"] = return_path
-    results["x_mailer"]   = x_mailer
+    results["x_mailer"]    = x_mailer
     results["hop_count"]   = len(received)
 
     sender_domain_match = re.search(r"@([w.-]+)", sender)
@@ -106,8 +109,8 @@ def extract_urls(msg) -> list:
 
 def check_url_virustotal(url: str) -> dict:
     """Check a URL against VirusTotal."""
-    if VIRUSTOTAL_API_KEY == "YOUR_VT_API_KEY":
-        return {"url": url, "status": "API key not configured", "malicious": 0, "suspicious": 0}
+    if not VIRUSTOTAL_API_KEY:
+        return {"url": url, "status": "API key not set (add VIRUSTOTAL_API_KEY to .env)", "malicious": 0, "suspicious": 0}
     hdrs = {"x-apikey": VIRUSTOTAL_API_KEY}
     resp = requests.post("https://www.virustotal.com/api/v3/urls", headers=hdrs, data={"url": url}, timeout=10)
     if resp.status_code != 200:
@@ -124,8 +127,8 @@ def check_ip_abuseipdb(ip: str) -> dict:
     """Check sender IP against AbuseIPDB."""
     if not ip:
         return {"ip": ip, "status": "No IP found"}
-    if ABUSEIPDB_API_KEY == "YOUR_ABUSEIPDB_KEY":
-        return {"ip": ip, "status": "API key not configured"}
+    if not ABUSEIPDB_API_KEY:
+        return {"ip": ip, "status": "API key not set (add ABUSEIPDB_API_KEY to .env)"}
     hdrs   = {"Key": ABUSEIPDB_API_KEY, "Accept": "application/json"}
     params = {"ipAddress": ip, "maxAgeInDays": "90"}
     resp = requests.get("https://api.abuseipdb.com/api/v2/check", headers=hdrs, params=params, timeout=10)
@@ -234,7 +237,6 @@ def main():
     report = generate_report(header_results, dns_results, url_results, ip_results, threat)
     print("\n" + report)
 
-    import os
     os.makedirs("reports", exist_ok=True)
     ts = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
     path = f"reports/report_{ts}.txt"
