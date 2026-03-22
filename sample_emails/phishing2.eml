@@ -1,0 +1,19 @@
+From: "IT Helpdesk" <helpdesk@corp-internal.net>
+To: employee@targetcorp.com
+Reply-To: attacker@gmail.com
+Return-Path: <noreply@corp-internal.net>
+Subject: [ACTION REQUIRED] Reset your VPN credentials
+Date: Fri, 21 Mar 2026 09:15:00 +0000
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Received: from smtp.corp-internal.net ([203.0.113.77]) by mail.targetcorp.com
+X-Mailer: Outlook 16.0
+
+<html><body>
+<p>Dear Employee,</p>
+<p>Our systems detected unusual login activity on your account.
+Please reset your VPN credentials immediately to restore access:</p>
+<p><a href="http://corp-internal-vpn.ru/reset">Click here to Reset Credentials</a></p>
+<p>This link expires in 2 hours. Do not share this link with anyone.</p>
+<p>IT Helpdesk Team</p>
+</body></html>
